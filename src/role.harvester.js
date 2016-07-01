@@ -57,6 +57,13 @@ var roleHarvester = {
                     creep.moveTo(container[0]);
                 }
             }
+            else
+            {
+                if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(creep.room.controller);
+
+                }
+            }
         }
         else
         {
@@ -71,7 +78,7 @@ var roleHarvester = {
 
 
 
-
+//
 
 
 
