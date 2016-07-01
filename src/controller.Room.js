@@ -33,7 +33,6 @@ var controllerRoom = {
 };
 
 function level1(room) {
-    if (room.controller.level == 1) {
 
         var roleHarvester = require('role.harvester');
         var roleUpgrader = require('role.upgrader');
@@ -49,12 +48,12 @@ function level1(room) {
 
         if (numberOfUpgraders < 2)
         {
-            Spawn1[0].createCreep([WORK, WORK, MOVE, CARRY], undefined, {role: 'upgrader'});
+            Spawn1[0].createCreep([WORK, WORK, MOVE, CARRY], undefined, {role: 'upgrader', upgrading:false , source:0});
         }
 
         for (var name in creeps) {
             if (creeps.hasOwnProperty(name)) {
-                var creep = Game.creeps[name];
+                var creep = creeps[name];
                 if (creep.memory.role == 'harvester') {
                     roleHarvester.run(creep);
                 }
@@ -63,7 +62,7 @@ function level1(room) {
                 }
             }
         }
-    }
+
 }
 
 module.exports = controllerRoom;
