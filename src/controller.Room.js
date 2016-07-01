@@ -39,6 +39,7 @@ function level1(room) {
         var roleUpgrader = require('role.upgrader');
 
         var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester' && c.room == room);
+        var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader' && c.room == room);
         var Spawn1 = room.find((FIND_MY_STRUCTURES), {filter: (spawns) => spawns.structureType == STRUCTURE_SPAWN});
         var creeps = _.filter(Game.creeps, (c) => c.room == room);
 
