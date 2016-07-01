@@ -1,5 +1,4 @@
 var roleHarvester = {
-    //dkjhfsd
     /** @param {Creep} creep **/
     run: function (creep) {
 
@@ -47,9 +46,9 @@ var roleHarvester = {
 
         if (creep.memory.depositing)
         {
-            var container = creep.room.find(FIND_STRUCTURES, {
+            var container = creep.room.find(FIND_MY_STRUCTURES, {
                 filter: (structure)=> {
-                    return (structure.structureType == STRUCTURE_CONTAINER) && structure.store[RESOURCE_ENERGY] < structure.storeCapacity
+                    return (structure.structureType == STRUCTURE_SPAWN) && structure.energy < structure.energyCapacity
                 }
             });
 
