@@ -13,7 +13,7 @@ module.exports.loop = function () {
         {
             if (Game.rooms[room].controller.level == 1) {
                 var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester' && c.room == Game.rooms[room]);
-                var Spawn1 =  Game.rooms[room].find((FIND_MY_STRUCTURES),{filter: (spawns) => spawns.structureType==STRUCTURE_SPAWN});
+                var Spawn1 =  Game.rooms[room].find(STRUCTURE_SPAWN);
                 if (numberOfHarvesters < 2) {
                     Game.spawns.Spawn1.createCreep([WORK,MOVE,CARRY], undefined, {role:'harvester'});
                 }
