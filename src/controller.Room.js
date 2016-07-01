@@ -1,7 +1,5 @@
 var controllerRoom = {
     run: function (room) {
-
-
         switch (room.controller.level) {
             case 1:
                 level1(room);
@@ -47,10 +45,12 @@ function level1(room) {
         if (numberOfHarvesters < 2) {
             Spawn1[0].createCreep([WORK, MOVE, CARRY], undefined, {role: 'harvester'});
         }
+
         if (numberOfUpgraders < 2)
         {
             Spawn1[0].createCreep([WORK, WORK, MOVE, CARRY], undefined, {role: 'upgrader'});
         }
+
         for (var name in creeps) {
             if (creeps.hasOwnProperty(name)) {
                 var creep = Game.creeps[name];
@@ -58,12 +58,10 @@ function level1(room) {
                     roleHarvester.run(creep);
                 }
                 if (creep.memory.role == 'upgrader') {
-                    roleHarvester.run(creep);
+                    roleUpgrader.run(creep);
                 }
             }
         }
-
-
     }
 }
 
