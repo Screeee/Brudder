@@ -17,15 +17,13 @@ module.exports.loop = function () {
                 // This is our room so let's start upgrading
                 var roomController = require('controller.Room');
                 roomController.run(roomObj);
-            } else if (roomObj.controller.owner != undefined) {
-                // This isn't ours and isn't blank?
-            } else if (roomObj.controller.owner == undefined) {
-                // This isn't ours and is blank
             }
             else if (Game.rooms[room].controller.owner != undefined) {
                 // This isn't ours and isn't blank?
-            } else if (Game.rooms[room].controller.owner == undefined) {
-                // This isn't ours and is blank
+            } else if (Game.rooms[room].controller.reservation != undefined) {
+                // This isn't ours and is reserved
+            } else {
+                // Should be ours for the taking!
             }
         }
     }
