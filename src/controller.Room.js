@@ -1,7 +1,5 @@
-
 var controllerRoom = {
     run: function (room) {
-
 
 
         switch (room.controller.level) {
@@ -41,7 +39,7 @@ function level1(room) {
 
         var roleHarvester = require('role.harvester');
 
-        var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester' && c.room == Game.rooms[room]);
+        var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester' && c.room == room);
         var Spawn1 = room.find((FIND_MY_STRUCTURES), {filter: (spawns) => spawns.structureType == STRUCTURE_SPAWN});
         var creeps = _.filter(Game.creeps, (c) => c.room == room);
 
@@ -49,9 +47,11 @@ function level1(room) {
             Spawn1[0].createCreep([WORK, MOVE, CARRY], undefined, {role: 'harvester'});
         }
         for (var name in creeps) {
-            var creep = Game.creeps[name];
-            if (creep.memory.role == 'harvester') {
-                roleHarvester.run(creep);
+            if (creeps.hasOwnProperty(name)) {
+                var creep = Game.creeps[name];
+                if (creep.memory.role == 'harvester') {
+                    roleHarvester.run(creep);
+                }
             }
         }
 
