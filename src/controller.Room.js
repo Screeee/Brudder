@@ -29,17 +29,17 @@ var controllerRoom = {
                 console.log("Uh...we shouldn't be here");
                 break;
         }
-    },
-
-    level1 : function (room){
-        if (Game.rooms[room].controller.level == 1) {
-            var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester' && c.room == Game.rooms[room]);
-            var Spawn1 =  Game.rooms[room].find((FIND_MY_STRUCTURES),{filter: (spawns) => spawns.structureType==STRUCTURE_SPAWN});
-            if (numberOfHarvesters < 2) {
-                Game.spawns.Spawn1.createCreep([WORK,MOVE,CARRY], undefined, {role:'harvester'});
-            }
-        }
     }
 };
+
+function level1(room) {
+    if (Game.rooms[room].controller.level == 1) {
+        var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester' && c.room == Game.rooms[room]);
+        var Spawn1 = Game.rooms[room].find((FIND_MY_STRUCTURES), {filter: (spawns) => spawns.structureType == STRUCTURE_SPAWN});
+        if (numberOfHarvesters < 2) {
+            Spawn1.createCreep([WORK, MOVE, CARRY], undefined, {role: 'harvester'});
+        }
+    }
+}
 
 module.exports = controllerRoom;
