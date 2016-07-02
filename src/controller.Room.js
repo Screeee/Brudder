@@ -60,4 +60,21 @@ function level1(room) {
     }
 }
 
+function level2(room){
+    var roleHarvester = require('role.harvester');
+    var roleUpgrader = require('role.upgrader');
+    var roleBuilder = require('role.builder');
+
+    var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester' && c.room == room);
+    var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader' && c.room == room);
+    var numberOfBuilders = _.sum(Game.creeps, (c) => c.memory.role == 'builder' && c.room == room);
+
+    var Spawn1 = room.find((FIND_MY_STRUCTURES), {filter: (spawns) => spawns.structureType == STRUCTURE_SPAWN});
+    var creeps = _.filter(Game.creeps, (c) => c.room == room);
+    
+
+
+
+}
+
 module.exports = controllerRoom;
