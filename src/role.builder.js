@@ -44,7 +44,7 @@ var roleBuilder = {
             }
             else
             {
-                creep.moveTo(Game.flags.builders.pos);
+                creep.memory.role = 'repairer';
             }
 
         }

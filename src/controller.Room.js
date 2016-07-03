@@ -64,6 +64,7 @@ function level2(room){
     var roleHarvester = require('role.harvester');
     var roleUpgrader = require('role.upgrader');
     var roleBuilder = require('role.builder');
+    var roleRepairer = require('role.repairer');
 
     var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester' && c.room == room);
     var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader' && c.room == room);
@@ -71,6 +72,37 @@ function level2(room){
 
     var Spawn1 = room.find((FIND_MY_STRUCTURES), {filter: (spawns) => spawns.structureType == STRUCTURE_SPAWN});
     var creeps = _.filter(Game.creeps, (c) => c.room == room);
+
+    if (numberOfHarvesters < 2) {
+        Spawn1[0].createCreep([WORK, MOVE, CARRY], undefined, {role: 'harvester'});
+    } else if (numberOfUpgraders < 2) {
+        Spawn1[0].createCreep([WORK, WORK, MOVE, CARRY], undefined, {role: 'upgrader', upgrading: false, source: 0});
+    } else if (numberOfBuilders<2 && numberOfRepairers<2)
+    {
+        Spawn1[0].createCreep([WORK, WORK, MOVE, CARRY], undefined, {role: 'upgrader', upgrading: false, source: 0});
+    }
+
+
+    for (var name in creeps) {
+        if (creeps.hasOwnProperty(name)) {
+            var creep = creeps[name];
+            if (creep.memory.role == 'harvester') {
+                roleHarvester.run(creep);
+            }
+            if (creep.memory.role == 'upgrader') {
+                roleUpgrader.run(creep);
+            }
+
+            if(creep.memory.role == 'builder')
+            {
+                roleBuilder.run(creep);
+            }
+            if(creep.memory.role == 'repairer')
+            {
+                roleRepairer.run(creep);
+            }
+        }
+    }
     
 
 
