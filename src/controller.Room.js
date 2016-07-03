@@ -65,13 +65,22 @@ function level2(room){
     var roleUpgrader = require('role.upgrader');
     var roleBuilder = require('role.builder');
     var roleRepairer = require('role.repairer');
-
-    var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester' && c.room == room);
-    var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader' && c.room == room);
-    var numberOfBuilders = _.sum(Game.creeps, (c) => c.memory.role == 'builder' && c.room == room);
-
+    var constructionPlanner = require('constructionPlanner');
+    var numberOfHarvesters = _.sum(room.find(FIND_MY_CREEPS), (c) => c.memory.role == 'harvester' && c.room == room);
+    var numberOfUpgraders = _.sum(room.find(FIND_MY_CREEPS), (c) => c.memory.role == 'upgrader' && c.room == room);
+    var numberOfBuilders = _.sum(room.find(FIND_MY_CREEPS), (c) => c.memory.role == 'builder' && c.room == room);
     var Spawn1 = room.find((FIND_MY_STRUCTURES), {filter: (spawns) => spawns.structureType == STRUCTURE_SPAWN});
     var creeps = _.filter(Game.creeps, (c) => c.room == room);
+
+
+    
+    if(room.memory.roadsBuild == undefined||room.memory.roadsBuilt==false)
+    {
+        constructionPlanner.buildRoadToAllSources(Spawn1[0]);
+        constructionPlanner.buildControllerRoad(room.controller,Spawn1[0]);
+        room.memory.roadsBuilt = true;
+    }
+    
 
     if (numberOfHarvesters < 2) {
         Spawn1[0].createCreep([WORK, MOVE, CARRY], undefined, {role: 'harvester'});
